@@ -1,0 +1,3 @@
+praw
+azure-storage
+python-dotenv
