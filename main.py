@@ -36,7 +36,7 @@ print("### Listening to new comments in /r/{}".format(SUBREDDIT_NAME))
 
 if not os.path.exists(DB_PATH):
   os.makedirs(DB_PATH)
-dbconn = sqlite3.connect(DB_PATH+"/"+DB_NAME)
+dbconn = sqlite3.connect(DB_PATH + "/" + DB_NAME)
 dbconn.cursor().execute('CREATE TABLE IF NOT EXISTS replied_to (comment_id text)')
 
 def checkAlreadyReplied(id):

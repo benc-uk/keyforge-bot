@@ -7,7 +7,7 @@ properties:
   - name: bot
     properties:
       image: python:3.6-alpine
-      command: ["/app/container-start.sh"]
+      command: ["bash", "/app/container-start.sh"]
       resources:
         requests:
           cpu: 0.5
