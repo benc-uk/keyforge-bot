@@ -7,11 +7,13 @@ properties:
   - name: bot
     properties:
       image: python:3.6-alpine
-      command: ["python", "main.py"]
+      command: ["/app/container-start.sh"]
       resources:
         requests:
           cpu: 0.5
           memoryInGb: 0.5
+      ports:
+      - port: 8888          
       environmentVariables:
       - name: SUBREDDIT_NAME
         value: testingground4bots
@@ -25,14 +27,22 @@ properties:
         value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
       volumeMounts:
       - name: botgitrepo 
-        mountPath: /
-      - name: data 
-        mountPath: /
+        mountPath: /app
+      # - name: dbdata 
+      #   mountPath: /data
 
   osType: Linux
   ipAddress:
     type: Public
+    ports:
+    - protocol: tcp
+      port: 8888   
   volumes:
     - name: botgitrepo
       gitRepo:
         repository: https://github.com/benc-uk/keyforge-bot.git
+    # - name: dbdata
+    #   azureFile:
+    #     shareName": "keyforge-bot-data"
+    #     storageAccountName": "myStorageAccount"
+    #     storageAccountKey": "<storage-account-key>"
