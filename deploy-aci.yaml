@@ -1,0 +1,38 @@
+apiVersion: 2018-10-01
+type: Microsoft.ContainerInstance/containerGroups
+location: northeurope
+name: keyforge-bot
+properties:
+  containers:
+  - name: bot
+    properties:
+      image: python:3.6-alpine
+      command: ["python", "main.py"]
+      resources:
+        requests:
+          cpu: 0.5
+          memoryInGb: 0.5
+      environmentVariables:
+      - name: SUBREDDIT_NAME
+        value: testingground4bots
+      - name: SKIP_OLD
+        value: True 
+      - name: praw_client_id
+        value: 3TuPzXlQHyTdZw
+      - name: praw_username
+        value: KeyForgeCardBot
+      - name: praw_user_agent
+        value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
+      volumeMounts:
+      - name: botgitrepo 
+        mountPath: /
+      - name: data 
+        mountPath: /
+
+  osType: Linux
+  ipAddress:
+    type: Public
+  volumes:
+    - name: botgitrepo
+      gitRepo:
+        repository: https://github.com/benc-uk/keyforge-bot.git
