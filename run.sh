@@ -1,2 +1,2 @@
 #!/bin/bash
-python3 -u main.py > output.log
+python3 -u main.py > output.log &
