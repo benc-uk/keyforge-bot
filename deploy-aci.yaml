@@ -19,13 +19,13 @@ properties:
       - name: SKIP_OLD
         value: True 
       - name: praw_client_id
-        value: 3TuPzXlQHyTdZw
+        value: xxxxxxxxxxxxxxxxxx
       - name: praw_client_secret
-        value: vIr8VGIZKz4uXZgWAcrvc4QDbV8
+        value: xxxxxxxxxxxxxxxxxx
       - name: praw_username
         value: KeyForgeCardBot
       - name: praw_password
-        value: R1chardG@rf!eld1993        
+        value: xxxxxxxxxxxxxxxxxx        
       - name: praw_user_agent
         value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
       # - name: dbdata 
