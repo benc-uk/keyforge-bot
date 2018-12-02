@@ -6,8 +6,7 @@ properties:
   containers:
   - name: bot
     properties:
-      image: python:3.6-alpine
-      command: ["bash", "/app/container-start.sh"]
+      image: bencuk/keyforgebot
       resources:
         requests:
           cpu: 0.5
@@ -21,13 +20,14 @@ properties:
         value: True 
       - name: praw_client_id
         value: 3TuPzXlQHyTdZw
+      - name: praw_client_secret
+        value: vIr8VGIZKz4uXZgWAcrvc4QDbV8
       - name: praw_username
         value: KeyForgeCardBot
+      - name: praw_password
+        value: R1chardG@rf!eld1993        
       - name: praw_user_agent
         value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
-      volumeMounts:
-      - name: botgitrepo 
-        mountPath: /app
       # - name: dbdata 
       #   mountPath: /data
 
@@ -37,10 +37,6 @@ properties:
     ports:
     - protocol: tcp
       port: 8888   
-  volumes:
-    - name: botgitrepo
-      gitRepo:
-        repository: https://github.com/benc-uk/keyforge-bot.git
     # - name: dbdata
     #   azureFile:
     #     shareName": "keyforge-bot-data"
