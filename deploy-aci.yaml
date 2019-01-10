@@ -19,11 +19,11 @@ properties:
       - name: praw_client_id
         value: xxxxxxxxxxxxxxxxxx
       - name: praw_client_secret
-        value: xxxxxxxxxxxxxxxxxx
+        secureValue: xxxxxxxxxxxxxxxxxx
       - name: praw_username
         value: KeyForgeCardBot
       - name: praw_password
-        value: xxxxxxxxxxxxxxxxxx        
+        secureValue: xxxxxxxxxxxxxxxxxx        
       - name: praw_user_agent
         value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
 
