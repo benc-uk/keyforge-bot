@@ -13,11 +13,11 @@ from pprint import pprint
 # Start up and config stuff
 load_dotenv()
 
-DB_PATH        = './data/'
-DB_NAME        = 'replies.db'
+#DB_PATH        = './data/'
+#DB_NAME        = 'replies.db'
 CARD_DB        = './cards.json'
-SUBREDDIT_NAME = os.getenv('SUBREDDIT_NAME', 'test') 
-SKIP_OLD       = bool(os.getenv('SKIP_OLD', 'True'))
+SUBREDDIT_NAME = os.getenv('SUBREDDIT_NAME', 'testingground4bots') 
+SKIP_OLD       = True #bool(os.getenv('SKIP_OLD', 'True'))
 
 print("### Starting KeyForgeCardBot...")
 
@@ -26,31 +26,17 @@ try:
   with open('cards.json') as f:
     cards_db = json.load(f)
 except:
-  print("### ERROR! Unable to load cards.json, can not continue")
+  print("### ERROR! Unable to load cards.json, can not continue!")
   exit(1)
 
-# Use settings in env variables https://praw.readthedocs.io/en/latest/getting_started/configuration/environment_variables.html
-reddit = praw.Reddit()
+# Use settings in env variables 
+# https://praw.readthedocs.io/en/latest/getting_started/configuration/environment_variables.html
+reddit = praw.Reddit(user_agent='KeyForge Card Bot by /u/joyrexj9 1.0.0')
 subreddit = reddit.subreddit(SUBREDDIT_NAME)
 print("### Listening to new comments in /r/{}".format(SUBREDDIT_NAME))
 
-if not os.path.exists(DB_PATH):
-  os.makedirs(DB_PATH)
-dbconn = sqlite3.connect(DB_PATH + "/" + DB_NAME)
-dbconn.cursor().execute('CREATE TABLE IF NOT EXISTS replied_to (comment_id text)')
-
-def checkAlreadyReplied(id):
-  cur = dbconn.cursor()
-  cur.execute("SELECT COUNT(*) FROM replied_to WHERE comment_id = ?", [id])
-  return cur.fetchone()[0] > 0
-
-def saveReply(id):
-  dbconn.cursor().execute("INSERT INTO replied_to VALUES (?)", [id])
-  dbconn.commit()
-
 def sigintHandler(sig, frame):
   print('### Closing...')
-  dbconn.close()
   exit(0)
 
 signal.signal(signal.SIGINT, sigintHandler)
@@ -58,7 +44,7 @@ signal.signal(signal.SIGINT, sigintHandler)
 pattern = re.compile(r'\[\[(.*?)\]\]', flags=re.M|re.I)
 
 for comment in subreddit.stream.comments(skip_existing=SKIP_OLD):
-  if not checkAlreadyReplied(comment.id) and comment.author.name != "KeyForgeCardBot":
+  if comment.author.name != "KeyForgeCardBot":
     matches = pattern.findall(comment.body)
     if matches:
       card_hits = 0
@@ -80,7 +66,6 @@ for comment in subreddit.stream.comments(skip_existing=SKIP_OLD):
         if card_hits > 0:
           print("### Sending reply...")
           comment.reply(reply)
-          saveReply(comment.id)
           print("### OK!\n")
       except Exception as e:
         print("!!!", e)

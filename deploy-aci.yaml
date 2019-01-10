@@ -16,8 +16,6 @@ properties:
       environmentVariables:
       - name: SUBREDDIT_NAME
         value: testingground4bots
-      - name: SKIP_OLD
-        value: True 
       - name: praw_client_id
         value: xxxxxxxxxxxxxxxxxx
       - name: praw_client_secret
@@ -28,8 +26,6 @@ properties:
         value: xxxxxxxxxxxxxxxxxx        
       - name: praw_user_agent
         value: "KeyForge Card Bot by /u/joyrexj9 1.0.0"
-      # - name: dbdata 
-      #   mountPath: /data
 
   osType: Linux
   ipAddress:
@@ -37,8 +33,3 @@ properties:
     ports:
     - protocol: tcp
       port: 8888   
-    # - name: dbdata
-    #   azureFile:
-    #     shareName": "keyforge-bot-data"
-    #     storageAccountName": "myStorageAccount"
-    #     storageAccountKey": "<storage-account-key>"

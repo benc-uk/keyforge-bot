@@ -107,3 +107,5 @@ venv.bak/
 praw.ini
 replies.db
 deploy-aci.yaml
+
+**.live.*
